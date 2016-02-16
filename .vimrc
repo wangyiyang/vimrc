@@ -21,7 +21,7 @@ set nu
 set autoindent
 set number
 set expandtab
-set tabstop=8
+set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set autoindent
@@ -33,5 +33,3 @@ filetype plugin on
 set ofu=syntaxcomplete#Complete
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929 
 match OverLength /\%81v.\+/
-nmap <c-v> "+gp  
-nmap <c-c> "+y
