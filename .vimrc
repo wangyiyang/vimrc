@@ -101,3 +101,7 @@ set nobackup
 set noswapfile
 "搜索忽略大小写
 set ignorecase
+
+set autoindent 
+
+set cindent
