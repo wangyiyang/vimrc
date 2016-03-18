@@ -95,7 +95,7 @@ func FormartSrc()
 endfunc
 "结束定义FormartSrc
 
-background=dark
+set background=dark
 
 set nobackup
 set noswapfile
