@@ -1,121 +1,101 @@
-set sw=4
-set ts=4
+"if has('gui_running')
+"	set background=dark
+"	colorscheme solarized
+"else
+"	colorscheme Zenburn
+"endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 显示相关  
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"call togglebg#map("<F5>")
+
+"color asmanian2 " 设置背景主题
+
+autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
+autocmd InsertEnter * se cul    " 用浅色高亮当前行 
+
+set ruler           " 显示标尺
+
+set laststatus=1    " 启动显示状态行(1),总是显示状态行(2)  
+set foldenable      " 允许折叠  
+set foldmethod=manual   " 手动折叠 
+set nocompatible  "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限
+
+"自动保存
+set autowrite
+set ruler                   " 打开状态栏标尺
+set cursorline              " 突出显示当前行
+set magic                   " 设置魔术
+set guioptions-=T           " 隐藏工具栏
+set guioptions-=m           " 隐藏菜单栏
+
+set nu
+
+let python_highlight_all=1
 syntax on
-set nocompatible  "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限  
-" 显示中文帮助
-if version >= 603
-	set helplang=cn
-	set encoding=utf-8
-endif
-" 自动缩进
-" Tab键的宽度
-set tabstop=4
-" 统一缩进为4
-set softtabstop=4
-set shiftwidth=4
-" 不要用空格代替制表符
-set expandtab
-" 在行和段开始处使用制表符
-set smarttab
-" 显示行号
-set number
-" 历史记录数
-set history=1000
-"搜索逐字符高亮
-set hlsearch
-set incsearch
-"语言设置
-set langmenu=zh_CN.UTF-8
-set helplang=cn
-" 总是显示状态行
-set cmdheight=2
-" 侦测文件类型
-filetype on
-" 载入文件类型插件
-filetype plugin on
-" 为特定文件类型载入相关缩进文件
-filetype indent on
-" 保存全局变量
-set viminfo+=!
 
-"markdown配置
-au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=mkd
-au BufRead,BufNewFile *.{go}   set filetype=go
-au BufRead,BufNewFile *.{js}   set filetype=javascript
-"rkdown to HTML  
-nmap md :!~/.vim/markdown.pl % > %.html <CR><CR>
-nmap fi :!firefox %.html & <CR><CR>
-nmap \ \cc
-vmap \ \cc
+set encoding=utf-8
 
-"将tab替换为空格
-nmap tt :%s/\t/    /g<CR>
+au BufNewFile,BufRead *.py
+			\ set tabstop=4 |
+			\ set softtabstop=4 |
+			\ set shiftwidth=4 |
+			\ set textwidth=79 |
+			\ set expandtab |
+			\ set autoindent |
+			\ set fileformat=unix |
+
+
+au BufNewFile,BufRead *.js, *.html, *.css
+			\ set tabstop=2
+			\ set softtabstop=2
+			\ set shiftwidth=2
 
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""新文件标题
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable folding with the spacebar
+nnoremap <space> za
 
 
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
 
 
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 
-"代码格式优化化
+set splitbelow
+set splitright
 
-map <F6> :call FormartSrc()<CR><CR>
 
-"定义FormartSrc()
-func FormartSrc()
-    exec "w"
-    if &filetype == 'c'
-        exec "!astyle --style=ansi -a --suffix=none %"
-    elseif &filetype == 'cpp' || &filetype == 'hpp'
-        exec "r !astyle --style=ansi --one-line=keep-statements -a --suffix=none %> /dev/null 2>&1"
-    elseif &filetype == 'perl'
-        exec "!astyle --style=gnu --suffix=none %"
-    elseif &filetype == 'py'||&filetype == 'python'
-        exec "r !autopep8 -i --aggressive %"
-    elseif &filetype == 'java'
-        exec "!astyle --style=java --suffix=none %"
-    elseif &filetype == 'jsp'
-        exec "!astyle --style=gnu --suffix=none %"
-    elseif &filetype == 'xml'
-        exec "!astyle --style=gnu --suffix=none %"
-    else
-        exec "normal gg=G"
-        return
-    endif
-    exec "e! %"
-endfunc
-"结束定义FormartSrc
-
-set background=dark
-
-set nobackup
-set noswapfile
-"搜索忽略大小写
-set ignorecase
-
-set autoindent 
-
-set cindent
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible " required
+filetype off " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-Plugin 'fatih/vim-go'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'vim-scripts/indentpython.vim'
+"Bundle 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/syntastic'
+Plugin 'nvie/vim-flake8'
+Plugin 'jnurmine/Zenburn'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'scrooloose/nerdtree'
 
+
+" Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+call vundle#end() " required
+filetype plugin indent on " required
+
+
