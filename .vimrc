@@ -1,3 +1,8 @@
+set nocompatible
+set backspace=indent,eol,start
+set ts=4
+set expandtab
+
 "if has('gui_running')
 "	set background=dark
 "	colorscheme solarized
@@ -91,6 +96,7 @@ Plugin 'nvie/vim-flake8'
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdtree'
+Plugin 'fatih/vim-go'  
 
 
 " Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
@@ -98,4 +104,22 @@ Plugin 'scrooloose/nerdtree'
 call vundle#end() " required
 filetype plugin indent on " required
 
-
+""将F2设置为开关NERDTree的快捷键
+map <f2> :NERDTreeToggle<cr>
+""修改树的显示图标
+let g:NERDTreeDirArrowExpandable = '+'
+let g:NERDTreeDirArrowCollapsible = '-'
+""窗口位置
+let g:NERDTreeWinPos='left'
+""窗口尺寸
+let g:NERDTreeSize=30
+""窗口是否显示行号
+let g:NERDTreeShowLineNumbers=1
+""不显示隐藏文件
+let g:NERDTreeHidden=0
+""打开vim时如果没有文件自动打开NERDTree
+autocmd vimenter * if !argc()|NERDTree|endif
+""当NERDTree为剩下的唯一窗口时自动关闭
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+""打开vim时自动打开NERDTree
+autocmd vimenter * NERDTree</cr></f2>
