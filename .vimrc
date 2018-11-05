@@ -1,6 +1,10 @@
 set nocompatible
 set backspace=indent,eol,start
 set ts=4
+set smartindent
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab
 
 "if has('gui_running')
@@ -48,11 +52,6 @@ au BufNewFile,BufRead *.py
 			\ set autoindent |
 			\ set fileformat=unix |
 
-
-au BufNewFile,BufRead *.js, *.html, *.css
-			\ set tabstop=2
-			\ set softtabstop=2
-			\ set shiftwidth=2
 
 
 
@@ -123,3 +122,4 @@ autocmd vimenter * if !argc()|NERDTree|endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 ""打开vim时自动打开NERDTree
 autocmd vimenter * NERDTree</cr></f2>
+let g:ycm_server_python_interpreter = ''
