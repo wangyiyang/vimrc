@@ -8,8 +8,8 @@ set softtabstop=4
 set expandtab
 
 "if has('gui_running')
-"	set background=dark
-"	colorscheme solarized
+set background=dark
+colorscheme solarized
 "else
 "	colorscheme Zenburn
 "endif
